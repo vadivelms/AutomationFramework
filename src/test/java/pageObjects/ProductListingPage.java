@@ -2,6 +2,7 @@ package pageObjects;
 
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
@@ -43,5 +44,7 @@ public class ProductListingPage {
         Select color = new Select(size_DrpDwn);
         color.selectByIndex(index);
     }
-
+    public String getProductName(int productNumber) {
+        return prd_List.get(productNumber).findElement(By.cssSelector("h3")).getText();
+    }
 }

@@ -1,10 +1,7 @@
 package managers;
 
 import org.openqa.selenium.WebDriver;
-import pageObjects.CartPage;
-import pageObjects.CheckoutPage;
-import pageObjects.HomePage;
-import pageObjects.ProductListingPage;
+import pageObjects.*;
 
 public class PageObjectManager {
 
@@ -18,8 +15,7 @@ public class PageObjectManager {
 
     private CheckoutPage checkoutPage;
 
-//    private ConfirmationPage confirmationPage;
-
+    private ConfirmationPage confirmationPage;
 
 
     public PageObjectManager(WebDriver driver) {
@@ -29,13 +25,11 @@ public class PageObjectManager {
     }
 
 
-
-    public HomePage getHomePage(){
+    public HomePage getHomePage() {
 
         return (homePage == null) ? homePage = new HomePage(driver) : homePage;
 
     }
-
 
 
     public ProductListingPage getProductListingPage() {
@@ -45,7 +39,6 @@ public class PageObjectManager {
     }
 
 
-
     public CartPage getCartPage() {
 
         return (cartPage == null) ? cartPage = new CartPage(driver) : cartPage;
@@ -53,10 +46,15 @@ public class PageObjectManager {
     }
 
 
-
     public CheckoutPage getCheckoutPage() {
 
         return (checkoutPage == null) ? checkoutPage = new CheckoutPage(driver) : checkoutPage;
+
+    }
+
+    public ConfirmationPage getConfirmationPage() {
+
+        return (confirmationPage == null) ? confirmationPage = new ConfirmationPage(driver) : confirmationPage;
 
     }
 }
