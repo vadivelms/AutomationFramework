@@ -13,7 +13,7 @@ import java.util.List;
 
 public class JsonDataReader {
     private final String customerFilePath = FileReaderManager.getInstance().getConfigReader().getTestDataResourcePath() + "Customer.json";
-    private List<Customer> customerList;
+    private final List<Customer> customerList;
 
     public JsonDataReader(){
         customerList = getCustomerData();

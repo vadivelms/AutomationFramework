@@ -5,7 +5,7 @@ import pageObjects.*;
 
 public class PageObjectManager {
 
-    private WebDriver driver;
+    private final WebDriver driver;
 
     private ProductListingPage productListingPage;
 

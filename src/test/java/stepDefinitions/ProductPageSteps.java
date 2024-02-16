@@ -4,6 +4,7 @@ import cucumber.TestContext;
 import enums.Context;
 import io.cucumber.java.en.When;
 import pageObjects.ProductListingPage;
+import utility.LoggingUtility;
 
 public class ProductPageSteps {
     TestContext testContext;
@@ -22,5 +23,7 @@ public class ProductPageSteps {
         productListingPage.select_Color(1);
         productListingPage.select_Size(1);
         productListingPage.clickOn_AddToCart();
+        LoggingUtility.logInfo("sampleinfo");
+        LoggingUtility.logError("sample error");
     }
 }
