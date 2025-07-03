@@ -12,21 +12,63 @@ public class CartPage {
         PageFactory.initElements(driver, this);
     }
 
-    @FindBy(how = How.CSS, using = ".cart-button")
-    private WebElement btn_Cart;
+    // Elements for cart page
+    @FindBy(how = How.CLASS_NAME, using = "cart_item")
+    private java.util.List<WebElement> cartItems;
 
-    @FindBy(how = How.CSS, using = ".checkout-button.alt")
-    private WebElement btn_ContinueToCheckout;
+    @FindBy(how = How.CLASS_NAME, using = "inventory_item_name")
+    private java.util.List<WebElement> cartItemNames;
+
+    @FindBy(how = How.CLASS_NAME, using = "inventory_item_price")
+    private java.util.List<WebElement> cartItemPrices;
+
+    @FindBy(how = How.CLASS_NAME, using = "cart_quantity")
+    private java.util.List<WebElement> cartItemQuantities;
+
+    @FindBy(how = How.CLASS_NAME, using = "shopping_cart_link")
+    private WebElement cartIcon;
+
+    @FindBy(how = How.ID, using = "checkout")
+    private WebElement checkoutButton;
 
 
-    public void clickOn_Cart() {
-        btn_Cart.click();
+    // Methods for cart actions and validations
+    public void openCart() {
+        cartIcon.click();
     }
 
-    public void clickOn_ContinueToCheckout(){
-        btn_ContinueToCheckout.click();
-        try { Thread.sleep(5000);}
-        catch (InterruptedException e) {}
+    public int getCartItemCount() {
+        return cartItems.size();
+    }
+
+    public String getCartItemName(int index) {
+        return cartItemNames.get(index).getText();
+    }
+
+    public String getCartItemPrice(int index) {
+        return cartItemPrices.get(index).getText();
+    }
+
+    public String getCartItemQuantity(int index) {
+        return cartItemQuantities.get(index).getText();
+    }
+
+    public boolean isProductInCart(String productName) {
+        return cartItemNames.stream().anyMatch(e -> e.getText().equalsIgnoreCase(productName));
+    }
+
+    public void removeItemByName(String productName) {
+        for (WebElement item : cartItems) {
+            WebElement name = item.findElement(org.openqa.selenium.By.className("inventory_item_name"));
+            if (name.getText().equalsIgnoreCase(productName)) {
+                item.findElement(org.openqa.selenium.By.tagName("button")).click();
+                break;
+            }
+        }
+    }
+
+    public void clickCheckout() {
+        checkoutButton.click();
     }
 
 }

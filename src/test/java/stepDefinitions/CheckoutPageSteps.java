@@ -1,10 +1,10 @@
 package stepDefinitions;
 
 import cucumber.TestContext;
-import io.cucumber.java.en.When;
-import managers.FileReaderManager;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
+import org.junit.Assert;
 import pageObjects.CheckoutPage;
-import testDataTypes.Customer;
 
 public class CheckoutPageSteps {
     TestContext testContext;
@@ -15,26 +15,20 @@ public class CheckoutPageSteps {
         checkoutPage = testContext.getPageObjectManager().getCheckoutPage();
     }
 
-    @When("enter {string} personal details on checkout page")
-    public void enter_personal_details_on_checkout_page(String customerName) throws InterruptedException {
-        Customer customer = FileReaderManager.getInstance().getJsonReader().getCustomerByName(customerName);
-        checkoutPage.fill_PersonalDetails(customer);
+    @And("user enters valid checkout information")
+    public void user_enters_valid_checkout_information() {
+        checkoutPage.fillCheckoutInformation("John", "Doe", "12345");
+        checkoutPage.clickContinue();
     }
 
-    @When("select same delivery address")
-    public void select_same_delivery_address() throws InterruptedException {
-//        checkoutPage.check_ShipToDifferentAddress(false);
+    @And("user completes the purchase")
+    public void user_completes_the_purchase() {
+        checkoutPage.clickFinish();
     }
 
-    @When("select payment method as {string} payment")
-    public void select_payment_method_as_payment(String string) {
-//        checkoutPage.select_PaymentMethod("CheckPayment");
-
-    }
-
-    @When("place the order")
-    public void place_the_order() {
-        checkoutPage.check_TermsAndCondition(true);
-        checkoutPage.clickOn_PlaceOrder();
+    @Then("the order should be completed successfully")
+    public void the_order_should_be_completed_successfully() {
+        Assert.assertTrue(checkoutPage.isCheckoutComplete());
     }
 }
+

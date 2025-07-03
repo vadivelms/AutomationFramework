@@ -1,5 +1,6 @@
 package managers;
 
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
@@ -57,7 +58,7 @@ public class WebDriverManager {
 
         if (FileReaderManager.getInstance().getConfigReader().getBrowserWindowSize())
             driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(FileReaderManager.getInstance().getConfigReader().getImplicitlyWait(), TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(FileReaderManager.getInstance().getConfigReader().getImplicitlyWait()));
         return driver;
     }
 

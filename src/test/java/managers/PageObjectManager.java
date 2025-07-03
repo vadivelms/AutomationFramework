@@ -15,7 +15,9 @@ public class PageObjectManager {
 
     private CheckoutPage checkoutPage;
 
-    private ConfirmationPage confirmationPage;
+    private InventoryListPage inventoryListPage;
+
+    private LoginPage loginPage;
 
 
     public PageObjectManager(WebDriver driver) {
@@ -52,9 +54,13 @@ public class PageObjectManager {
 
     }
 
-    public ConfirmationPage getConfirmationPage() {
+    public InventoryListPage getInventoryListPage() {
 
-        return (confirmationPage == null) ? confirmationPage = new ConfirmationPage(driver) : confirmationPage;
+        return (inventoryListPage == null) ? inventoryListPage = new InventoryListPage(driver) : inventoryListPage;
 
+    }
+
+    public LoginPage getLoginPage() {
+        return (loginPage == null) ? loginPage = new LoginPage(driver) : loginPage;
     }
 }

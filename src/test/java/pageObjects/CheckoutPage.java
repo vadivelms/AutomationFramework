@@ -18,141 +18,69 @@ public class CheckoutPage {
         PageFactory.initElements(driver, this);
     }
 
-    @FindBy(how = How.CSS, using = "#billing_first_name")
-    private WebElement txtbx_FirstName;
+    @FindBy(how = How.ID, using = "first-name")
+    private WebElement firstNameInput;
 
-    @FindBy(how = How.CSS, using = "#billing_last_name")
-    private WebElement txtbx_LastName;
+    @FindBy(how = How.ID, using = "last-name")
+    private WebElement lastNameInput;
 
-    @FindBy(how = How.CSS, using = "#billing_email")
-    private WebElement txtbx_Email;
+    @FindBy(how = How.ID, using = "postal-code")
+    private WebElement postalCodeInput;
 
-    @FindBy(how = How.CSS, using = "#billing_phone")
-    private WebElement txtbx_Phone;
+    @FindBy(how = How.ID, using = "continue")
+    private WebElement continueButton;
 
-    @FindBy(how = How.CSS, using = "#billing_country_field .select2-arrow")
-    private WebElement drpdwn_CountryDropDownArrow;
+    @FindBy(how = How.ID, using = "cancel")
+    private WebElement cancelButton;
 
-    @FindBy(how = How.CSS, using = "#billing_state_field .select2-arrow")
-    private WebElement drpdwn_CountyDropDownArrow;
+    @FindBy(how = How.ID, using = "finish")
+    private WebElement finishButton;
 
-    @FindAll(@FindBy(how = How.CSS, using = "#select2-drop ul li"))
-    private List<WebElement> country_List;
+    @FindBy(how = How.CLASS_NAME, using = "summary_total_label")
+    private WebElement summaryTotalLabel;
 
-    @FindBy(how = How.CSS, using = "#billing_city")
-    private WebElement txtbx_City;
+    @FindBy(how = How.CLASS_NAME, using = "complete-header")
+    private WebElement completeHeader;
 
-    @FindBy(how = How.CSS, using = "#billing_address_1")
-    private WebElement txtbx_Address;
-
-    @FindBy(how = How.CSS, using = "#billing_postcode")
-    private WebElement txtbx_PostCode;
-
-    @FindBy(how = How.CSS, using = "#ship-to-different-address-checkbox")
-    private WebElement chkbx_ShipToDifferetAddress;
-
-    @FindAll(@FindBy(how = How.CSS, using = "ul.wc_payment_methods li"))
-    private List<WebElement> paymentMethod_List;
-
-    @FindBy(how = How.CSS, using = "#terms.input-checkbox")
-    private WebElement chkbx_AcceptTermsAndCondition;
-
-    @FindBy(how = How.CSS, using = "#place_order")
-    private WebElement btn_PlaceOrder;
-
-
-    public void enter_Name(String name) {
-        txtbx_FirstName.sendKeys(name);
+    public void enterFirstName(String firstName) {
+        firstNameInput.clear();
+        firstNameInput.sendKeys(firstName);
     }
 
-    public void enter_LastName(String lastName) {
-        txtbx_LastName.sendKeys(lastName);
+    public void enterLastName(String lastName) {
+        lastNameInput.clear();
+        lastNameInput.sendKeys(lastName);
     }
 
-    public void enter_Email(String email) {
-        txtbx_Email.sendKeys(email);
+    public void enterPostalCode(String postalCode) {
+        postalCodeInput.clear();
+        postalCodeInput.sendKeys(postalCode);
     }
 
-    public void enter_Phone(String phone) {
-        txtbx_Phone.sendKeys(phone);
+    public void clickContinue() {
+        continueButton.click();
     }
 
-    public void enter_City(String city) {
-        txtbx_City.sendKeys(city);
+    public void clickCancel() {
+        cancelButton.click();
     }
 
-    public void enter_Address(String address) {
-        txtbx_Address.sendKeys(address);
+    public void clickFinish() {
+        finishButton.click();
     }
 
-    public void enter_PostCode(String postCode) {
-        txtbx_PostCode.sendKeys(postCode);
+    public String getSummaryTotal() {
+        return summaryTotalLabel.getText();
     }
 
-    public void check_ShipToDifferentAddress(boolean value) {
-        if (!value) chkbx_ShipToDifferetAddress.click();
-        Wait.untilJqueryIsDone(driver);
-
+    public boolean isCheckoutComplete() {
+        return completeHeader.isDisplayed();
     }
 
-    public void select_Country(String countryName) {
-        drpdwn_CountryDropDownArrow.click();
-        Wait.untilJqueryIsDone(driver);
-
-        for (WebElement country : country_List) {
-            if (country.getText().equals(countryName)) {
-                country.click();
-                Wait.untilJqueryIsDone(driver);
-                break;
-            }
-        }
+    public void fillCheckoutInformation(String firstName, String lastName, String postalCode) {
+        enterFirstName(firstName);
+        enterLastName(lastName);
+        enterPostalCode(postalCode);
     }
 
-    public void select_County(String countyName) {
-        drpdwn_CountyDropDownArrow.click();
-        Wait.untilJqueryIsDone(driver);
-
-        for (WebElement county : country_List) {
-            if (county.getText().equals(countyName)) {
-                county.click();
-                Wait.untilJqueryIsDone(driver);
-                break;
-            }
-        }
-    }
-
-    public void select_PaymentMethod(String paymentMethod) {
-        if (paymentMethod.equals("CheckPayment")) {
-            paymentMethod_List.get(0).click();
-        } else if (paymentMethod.equals("Cash")) {
-            paymentMethod_List.get(1).click();
-        } else {
-            new Exception("Payment Method not recognised : " + paymentMethod);
-        }
-        Wait.untilJqueryIsDone(driver);
-
-    }
-
-    public void check_TermsAndCondition(boolean value) {
-        if (value) chkbx_AcceptTermsAndCondition.click();
-    }
-
-    public void fill_PersonalDetails(Customer customer) {
-        enter_Name(customer.getFirstName());
-        enter_LastName(customer.getLastName());
-        enter_Phone(customer.getPhoneNumber().getMob());
-        enter_Email(customer.getEmailAddress());
-//        select_Country("India");
-        enter_City(customer.getAddress().getCity());
-        enter_Address(customer.getAddress().getStreetAddress());
-        enter_PostCode(customer.getAddress().getPostCode());
-//        select_County("Delhi");
-
-    }
-
-    public void clickOn_PlaceOrder() {
-        btn_PlaceOrder.submit();
-//        Wait.untilJqueryIsDone(driver);
-//        Wait.untilPageLoadComplete(driver);
-    }
 }

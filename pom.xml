@@ -13,7 +13,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>11</java.version>
-        <selenium.version>4.17.0</selenium.version>
+        <selenium.version>4.34.0</selenium.version>
         <cucumber.version>7.15.0</cucumber.version>
         <cucumber.jvm.deps.version>1.0.6</cucumber.jvm.deps.version>
         <junit.platform.suite.version>1.10.2</junit.platform.suite.version>
@@ -22,7 +22,9 @@
         <allure.version>2.25.0</allure.version>
         <log4j.version>2.22.1</log4j.version>
         <jackson.version>2.16.1</jackson.version>
+        <testng.version>7.11.0</testng.version>
         <maven.compiler.plugin.version>3.12.1</maven.compiler.plugin.version>
+        <jna.version>5.14.0</jna.version>
     </properties>
 
     <dependencies>
@@ -103,6 +105,16 @@
             <artifactId>allure-junit-platform</artifactId>
             <version>${allure.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${testng.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.java.dev.jna</groupId>
+            <artifactId>jna</artifactId>
+            <version>${jna.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -121,5 +133,15 @@
 
             </plugins>
         </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>21</source>
+                    <target>21</target>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 </project>

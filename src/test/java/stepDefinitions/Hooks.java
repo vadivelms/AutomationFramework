@@ -4,6 +4,7 @@ import cucumber.TestContext;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
+import managers.FileReaderManager;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 
@@ -17,20 +18,13 @@ public class Hooks {
     @Before
     public void beforeSteps() {
         System.out.println("----------- BeforeSteps");
-		/*What all you can perform here
-			Starting a webdriver
-			Setting up DB connections
-			Setting up test data
-			Setting up browser cookies
-			Navigating to certain page
-			or anything before the test
-		*/
+        testContext.getWebDriverManager().getDriver().get(FileReaderManager.getInstance().getConfigReader().getApplicationUrl());
     }
 
     @After
     public void afterSteps(Scenario scenario) {
         String status = String.valueOf(scenario.getStatus());
-        System.out.println("status : ---"+status);
+        System.out.println("status : ---" + status);
         if (!status.equals("PASSED")) {
             scenario.attach(((TakesScreenshot) testContext.getWebDriverManager().getDriver()).getScreenshotAs(OutputType.BYTES),
                     "image/png", "Screenshot for the failed/broken step");
