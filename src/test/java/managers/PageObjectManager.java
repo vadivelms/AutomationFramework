@@ -11,8 +11,6 @@ public class PageObjectManager {
 
     private CartPage cartPage;
 
-    private HomePage homePage;
-
     private CheckoutPage checkoutPage;
 
     private InventoryListPage inventoryListPage;
@@ -26,27 +24,17 @@ public class PageObjectManager {
 
     }
 
-
-    public HomePage getHomePage() {
-
-        return (homePage == null) ? homePage = new HomePage(driver) : homePage;
-
-    }
-
-
     public ProductListingPage getProductListingPage() {
 
         return (productListingPage == null) ? productListingPage = new ProductListingPage(driver) : productListingPage;
 
     }
 
-
     public CartPage getCartPage() {
 
         return (cartPage == null) ? cartPage = new CartPage(driver) : cartPage;
 
     }
-
 
     public CheckoutPage getCheckoutPage() {
 
